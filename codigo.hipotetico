@@ -1,7 +1,6 @@
+# Comentário: Início do código de exemplo#
 varseteste = 0
-fat = 1
-para i de 1 ate 10 faca
-    fat = fat x i
-fim-para
-tela = "10! = " + fat
+d = 41 : (4 / 2)
+b = (8 + 7) x 4,1
+s = (a * (((b x c) : d) / 2))
 fim

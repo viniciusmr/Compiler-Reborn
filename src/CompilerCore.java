@@ -44,11 +44,11 @@ public class CompilerCore {
         
 
         //show AST in GUI
-        JFrame frame = new JFrame("Antlr AST");
+        JFrame frame = new JFrame("AST do código");
         JPanel panel = new JPanel();
         TreeViewer viewr = new TreeViewer(Arrays.asList(
                 parser.getRuleNames()),tree);
-        viewr.setScale(1.5);//scale a little
+        viewr.setScale(1);//scale a little
         panel.add(viewr);
         
         JScrollPane scrollPane = new JScrollPane(panel);

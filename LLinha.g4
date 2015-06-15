@@ -3,9 +3,11 @@
  */
 grammar LLinha;
 
-programa  :  comandos FIM ;//EOF;         // match keyword hello followed by an identifier
+programa  : ENDLINE* comandos FIM ENDLINE* EOF;
+FIM: 'fim';
+         // match keyword hello followed by an identifier
 
-comandos  :  comando (ENDLINE comandos)* ;  //gramatica 'original' geraria uma producao infinita de comandos
+comandos  :  comando (ENDLINE comandos)* ENDLINE* ;
 
 comando 
 : SE condicao ENTAO comandos FIM_SE
@@ -20,17 +22,17 @@ comando
 
 condicao : condicao and expressao 
 | condicao or expressao
-| condicao igual expressao
+| condicao '==' expressao
 | condicao dif expressao
-| condicao menor expressao
+| condicao '<' expressao
 | condicao menori expressao
-| condicao maior expressao
+| condicao '>' expressao
 | condicao maiori expressao
 | expressao
 ;
 
-expressao : expressao add expressaoprec 
-| expressao sub expressaoprec 
+expressao : expressao '+' expressaoprec 
+| expressao '-' expressaoprec 
 | expressaoprec;
 
 expressaoprec : '('expressao')'
@@ -43,6 +45,7 @@ termo : '(' condicao ')'
 | ID
 | vetor
 | NUMERO
+| DECIMAL
 | 'verdadeiro'
 | 'falso'
 | ID'('params')'
@@ -79,22 +82,16 @@ FUNC: 'funcao';
 END_FUNC: 'fim-funcao';
 and: 'e';
 or: 'ou';
-FIM: 'fim';
 
 ID : [a-zA-Z] [a-zA-Z0-9_]* ;
 ENDLINE: [\r\n] ;//-> skip ;
 WS : [ \t\f]+  -> skip ; // skip spaces, tabs, newlines
-COMMENTS : '#' ~[#]* '#' [\r\n]* -> skip ; // comentários
+COMMENTS : '#' ~[#]* '#' -> skip ; // comentários
 
 
-maior: '>';
-menor: '<';
-igual: '==';
+dif: '!=' | '=!';
 menori: '<=' | '=<';
 maiori: '>=' | '=>';
-dif: '!=' | '=!';
-add: '+';
-sub: '-';
 mult: '*'|'x';
 div: ':'|'/';
 
