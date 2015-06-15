@@ -1,0 +1,7 @@
+varseteste = 0
+fat = 1
+para i de 1 ate 10 faca
+    fat = fat x i
+fim-para
+tela = "10! = " + fat
+fim
