@@ -38,6 +38,16 @@ public interface LLinhaListener extends ParseTreeListener {
 	 */
 	void exitComando(LLinhaParser.ComandoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LLinhaParser#se}.
+	 * @param ctx the parse tree
+	 */
+	void enterSe(LLinhaParser.SeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LLinhaParser#se}.
+	 * @param ctx the parse tree
+	 */
+	void exitSe(LLinhaParser.SeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LLinhaParser#condicao}.
 	 * @param ctx the parse tree
 	 */
@@ -108,55 +118,15 @@ public interface LLinhaListener extends ParseTreeListener {
 	 */
 	void exitParams(LLinhaParser.ParamsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#and}.
+	 * Enter a parse tree produced by {@link LLinhaParser#dif}.
 	 * @param ctx the parse tree
 	 */
-	void enterAnd(LLinhaParser.AndContext ctx);
+	void enterDif(LLinhaParser.DifContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#and}.
+	 * Exit a parse tree produced by {@link LLinhaParser#dif}.
 	 * @param ctx the parse tree
 	 */
-	void exitAnd(LLinhaParser.AndContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#or}.
-	 * @param ctx the parse tree
-	 */
-	void enterOr(LLinhaParser.OrContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#or}.
-	 * @param ctx the parse tree
-	 */
-	void exitOr(LLinhaParser.OrContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#maior}.
-	 * @param ctx the parse tree
-	 */
-	void enterMaior(LLinhaParser.MaiorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#maior}.
-	 * @param ctx the parse tree
-	 */
-	void exitMaior(LLinhaParser.MaiorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#menor}.
-	 * @param ctx the parse tree
-	 */
-	void enterMenor(LLinhaParser.MenorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#menor}.
-	 * @param ctx the parse tree
-	 */
-	void exitMenor(LLinhaParser.MenorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#igual}.
-	 * @param ctx the parse tree
-	 */
-	void enterIgual(LLinhaParser.IgualContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#igual}.
-	 * @param ctx the parse tree
-	 */
-	void exitIgual(LLinhaParser.IgualContext ctx);
+	void exitDif(LLinhaParser.DifContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LLinhaParser#menori}.
 	 * @param ctx the parse tree
@@ -177,36 +147,6 @@ public interface LLinhaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMaiori(LLinhaParser.MaioriContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#dif}.
-	 * @param ctx the parse tree
-	 */
-	void enterDif(LLinhaParser.DifContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#dif}.
-	 * @param ctx the parse tree
-	 */
-	void exitDif(LLinhaParser.DifContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#add}.
-	 * @param ctx the parse tree
-	 */
-	void enterAdd(LLinhaParser.AddContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#add}.
-	 * @param ctx the parse tree
-	 */
-	void exitAdd(LLinhaParser.AddContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LLinhaParser#sub}.
-	 * @param ctx the parse tree
-	 */
-	void enterSub(LLinhaParser.SubContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LLinhaParser#sub}.
-	 * @param ctx the parse tree
-	 */
-	void exitSub(LLinhaParser.SubContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LLinhaParser#mult}.
 	 * @param ctx the parse tree

@@ -3,25 +3,37 @@
  */
 grammar LLinha;
 
-programa  : ENDLINE* comandos FIM ENDLINE* EOF;
-FIM: 'fim';
-         // match keyword hello followed by an identifier
+programa  
+: ENDLINE* comandos 'fim' ENDLINE* EOF
+| ENDLINE* comandos ENDLINE* EOF {notifyErrorListeners("'fim' Nao encontrado."); System.exit(1);}
+;
 
-comandos  :  comando (ENDLINE comandos)* ENDLINE* ;
+comandos  :  comando ENDLINE+ (comandos)* ;
 
 comando 
-: SE condicao ENTAO comandos FIM_SE
-| SE condicao ENTAO comandos SENAO comandos FIM_SE
-| WHILE condicao DO comandos END_WHILE
-| FOR ID FROM NUMERO TO NUMERO DO comandos END_FOR
+: se
+| 'enquanto' condicao 'faca' ENDLINE* comandos 'fim-enquanto'
+| 'para' ID 'de' NUMERO 'ate' NUMERO 'faca' ENDLINE* comandos 'fim-para'
 | ID '=' condicao
 | vetor '=' condicao 
-| FUNC ID'('params')' comandos END_FUNC
-| dclvetor;
+| 'funcao' ID'('params')' comandos 'fim-funcao'
+| ID '('params')' {notifyErrorListeners("A gramatica nao aceita chamada de funcoes."); System.exit(1);}
+| dclvetor
+//ERROS mais especificos
+| 'e' '=' condicao {notifyErrorListeners("Caracter reservado: 'e'"); System.exit(1);}
+| 'x' '=' condicao {notifyErrorListeners("Caracter reservado: 'x'"); System.exit(1);}
+;
 
+se
+: 'se' condicao 'entao' ENDLINE* comandos ('senao' ENDLINE* comandos)? 'fim-se'
+//ERROS mais especificos
+| 'se' condicao ENDLINE* comandos ('senao' ENDLINE* comandos)? 'fim-se' {notifyErrorListeners("O 'entao' do 'se' nao foi encontrado. "); System.exit(1);}
+| 'se' condicao 'entao' ENDLINE* comandos ('senao' ENDLINE* comandos)? {notifyErrorListeners("O 'fim-se' do 'se' nao foi encontrado. "); System.exit(1);}
+;
 
-condicao : condicao and expressao 
-| condicao or expressao
+condicao 
+: condicao 'e' expressao 
+| condicao 'ou' expressao
 | condicao '==' expressao
 | condicao dif expressao
 | condicao '<' expressao
@@ -31,17 +43,23 @@ condicao : condicao and expressao
 | expressao
 ;
 
-expressao : expressao '+' expressaoprec 
+expressao 
+: expressao '+' expressaoprec 
 | expressao '-' expressaoprec 
 | expressaoprec;
 
-expressaoprec : '('expressao')'
+
+expressaoprec 
+: '('expressao')'
 | expressaoprec div expressaoprec
 | expressaoprec mult expressaoprec
-| termo;
+| termo
+// ERROS
+;
 
 
-termo : '(' condicao ')'
+termo 
+: '(' condicao ')'
 | ID
 | vetor
 | NUMERO
@@ -56,35 +74,25 @@ termo : '(' condicao ')'
 vetor 
 : ID ('['condicao']')+;
 
-
-dclvetor: vetor ID ('['NUMERO']')+ ;
+dclvetor: 'vetor' ID ('['NUMERO']')+ ;
 
 params: condicao (',' params)* ;
-
 
 DECIMAL: NUMERO [,.] NUMERO+;
 NUMERO : ('0'..'9')+;
 
-STRING: '\"' (~["])* '\"' ;
 
-DO : 'faca';
-FROM : 'de';
-TO : 'ate';
-FOR : 'para';
-END_FOR : 'fim-para';
-WHILE : 'enquanto';
-END_WHILE : 'fim-enquanto';
-ENTAO : 'entao';//[\n]*;
-SE : 'se';
-FIM_SE : 'fim-se';
-SENAO : 'senao';
-FUNC: 'funcao';
-END_FUNC: 'fim-funcao';
-and: 'e';
-or: 'ou';
+STRING
+: '\"' (~["])* '\"' 
+;
 
-ID : [a-zA-Z] [a-zA-Z0-9_]* ;
+
+ID 
+: [a-zA-Z] [a-zA-Z0-9_]*
+;
+
 ENDLINE: [\r\n] ;//-> skip ;
+DEVOURER: [\r\n] -> skip;
 WS : [ \t\f]+  -> skip ; // skip spaces, tabs, newlines
 COMMENTS : '#' ~[#]* '#' -> skip ; // comentários
 

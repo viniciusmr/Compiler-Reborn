@@ -1,6 +1,27 @@
-# Comentário: Início do código de exemplo#
-varseteste = 0
-d = 41 : (4 / 2)
-b = (8 + 7) x 4,1
-s = (a * (((b x c) : d) / 2))
+# Comentário: Início do código de exemplo# 
+fat = 1
+para i de 1 ate 10 faca
+    fat = fat x i
+fim-para
+tela = "10! = " + fat
+
+fat = 1
+i = 1
+enquanto i <= 5 faca
+    fat = fat x i
+    i = i + 1
+fim-enquanto
+tela = "5! = " + fat
+te = 3,4
+
+se (a < 3) entao print = "olá"
+
+
+vetor m[10][10]
+
+m[1][1] = 1.5
+m[1][2] = 3.2
+m[2][1] = 3,3
+m[2][i] = 2,9
+
 fim

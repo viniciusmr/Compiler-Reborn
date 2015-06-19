@@ -39,6 +39,7 @@ public class CompilerCore {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         
         LLinhaParser parser = new LLinhaParser(tokens);
+        //parser.setErrorHandler(new BailErrorStrategy());    //ABORTADOR
         ParseTree tree = parser.programa(); // begin parsing at rule 'r'
         System.out.println(tree.toStringTree(parser)); // print LISP-style tree
         
